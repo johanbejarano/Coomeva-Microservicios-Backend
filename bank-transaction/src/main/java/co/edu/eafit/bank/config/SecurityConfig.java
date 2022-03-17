@@ -15,11 +15,18 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private static final String ACTUATOR_BASE                = "/actuator";
+	private static final String MATCHERS_ACTUATOR_HEALTH     = ACTUATOR_BASE + "/health";
+	private static final String MATCHERS_ACTUATOR_PROMETHEUS = ACTUATOR_BASE + "/prometheus";
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
 			
+				.antMatchers(MATCHERS_ACTUATOR_HEALTH).permitAll()
+		        .antMatchers(MATCHERS_ACTUATOR_PROMETHEUS).permitAll()
+				
 				//Todo request -> Autenticado
 				.anyRequest().authenticated()
 			
