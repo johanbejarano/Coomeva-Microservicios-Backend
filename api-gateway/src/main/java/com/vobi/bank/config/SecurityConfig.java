@@ -15,7 +15,7 @@ public class SecurityConfig {
 		
 		
 		//Todas las solicitudes deben venir autenticadas
-		http.authorizeExchange(exchange -> exchange.anyExchange().authenticated())
+		http.authorizeExchange(exchange -> exchange.pathMatchers("/*/actuator/**").permitAll(). anyExchange().authenticated())
 			.oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
 		
 		http.csrf().disable();

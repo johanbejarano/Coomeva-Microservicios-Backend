@@ -54,8 +54,12 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 //	@Autowired
 //	OTPServiceClient otpServiceClient;
 	
+//	@Autowired
+//	FeignClients feignClients;
+	
 	@Autowired
-	FeignClients feignClients;
+	OTPServiceCircuitBreaker otpServiceCircuitBreaker;
+
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
@@ -96,8 +100,14 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 		Users user = userOptional.get();
 		
 		//Se valida el token contra el servicio		
-		OTPValidationResponse otpValidationResponse = 
-				validateToken(user.getUserEmail(), transferDTO.getToken());
+//		OTPValidationResponse otpValidationResponse = 
+//				validateToken(user.getUserEmail(), transferDTO.getToken());
+		
+		OTPValidationResponse otpValidationResponse = otpServiceCircuitBreaker.validateOTP(
+				transferDTO.getUserEmail(), 
+				transferDTO.getToken()
+			);
+
 
 		if (otpValidationResponse == null || !otpValidationResponse.getValid()) {
 			throw new Exception("Not valid OTP");
@@ -137,13 +147,13 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 //	}
 	
 
-	private OTPValidationResponse validateToken(String user, String otp) throws Exception {
-
-		OTPValidationRequest otpValidationRequest = new OTPValidationRequest(user, otp);
-		//return otpServiceClient.validateOTP(otpValidationRequest);
-		return feignClients.validateOTP(otpValidationRequest);
-
-	}
+//	private OTPValidationResponse validateToken(String user, String otp) throws Exception {
+//
+//		OTPValidationRequest otpValidationRequest = new OTPValidationRequest(user, otp);
+//		//return otpServiceClient.validateOTP(otpValidationRequest);
+//		return feignClients.validateOTP(otpValidationRequest);
+//
+//	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
