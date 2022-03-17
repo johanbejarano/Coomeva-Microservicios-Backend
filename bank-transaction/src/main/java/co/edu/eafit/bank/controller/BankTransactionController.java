@@ -1,5 +1,6 @@
 package co.edu.eafit.bank.controller;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class BankTransactionController {
 	BankTransactionService bankTransactionService;
 
 	@PostMapping("/transfer")
+	@RolesAllowed("ROLE_bank_holder")
 	public ResponseEntity<TransactionResultDTO> transfer(@Valid @RequestBody TransferDTO transferDTO) throws Exception {
 
 		TransactionResultDTO transactionResultDTO = bankTransactionService.transfer(transferDTO);
@@ -33,6 +35,7 @@ public class BankTransactionController {
 	}
 
 	@PostMapping("/withdraw")
+	@RolesAllowed("ROLE_bank_holder")
 	public ResponseEntity<TransactionResultDTO> withdraw(@Valid @RequestBody WithdrawDTO withdrawDTO) throws Exception {
 
 		TransactionResultDTO transactionResultDTO = bankTransactionService.withdraw(withdrawDTO);
@@ -41,11 +44,18 @@ public class BankTransactionController {
 	}
 
 	@PostMapping("/deposit")
+	@RolesAllowed("ROLE_bank_holder")
 	public ResponseEntity<TransactionResultDTO> deposit(@Valid @RequestBody DepositDTO depositDTO) throws Exception {
 
 		TransactionResultDTO transactionResultDTO = bankTransactionService.deposit(depositDTO);
 		return ResponseEntity.ok().body(transactionResultDTO);
 
+	}
+	
+	@PostMapping("/unlock")
+	@RolesAllowed("ROLE_cashier")
+	public ResponseEntity<String> unlockAccount() throws Exception {
+		return ResponseEntity.ok().body("Account unlocked");
 	}
 
 }
