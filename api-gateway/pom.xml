@@ -8,7 +8,7 @@
 		<version>2.6.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.vobi.bank</groupId>
+	<groupId>co.com.coomeva.bank</groupId>
 	<artifactId>api-gateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>api-gateway</name>
