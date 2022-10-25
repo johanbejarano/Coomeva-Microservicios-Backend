@@ -8,7 +8,7 @@
 		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>co.edu.eafit</groupId>
+	<groupId>co.com.coomeva.bank</groupId>
 	<artifactId>bank-transaction</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>bank-transaction</name>
@@ -163,17 +163,17 @@
 				<configuration>
 					<excludes>
 						<!-- exclude class -->
-						<exclude>co/edu/eafit/bank/BankTransactionApplication.class</exclude>
-						<exclude>co/edu/eafit/bank/controller/GeneralExceptionHandler.class</exclude>
+						<exclude>co/com/coomeva/bank/BankTransactionApplication.class</exclude>
+						<exclude>co/com/coomeva/bank/controller/GeneralExceptionHandler.class</exclude>
 						
 						<!-- exclude classes in package -->
-						<exclude>co/edu/eafit/bank/dto/*</exclude>
-						<exclude>co/edu/eafit/bank/domain/*</exclude>
-						<exclude>co/edu/eafit/bank/mapper/*</exclude>
-						<exclude>co/edu/eafit/bank/repository/*</exclude>
-						<exclude>co/edu/eafit/bank/exception/*</exclude>
-						<exclude>co/edu/eafit/bank/security/*</exclude>
-						<exclude>co/edu/eafit/bank/entityservice/*</exclude>
+						<exclude>co/com/coomeva/bank/dto/*</exclude>
+						<exclude>co/com/coomeva/bank/domain/*</exclude>
+						<exclude>co/com/coomeva/bank/mapper/*</exclude>
+						<exclude>co/com/coomeva/bank/repository/*</exclude>
+						<exclude>co/com/coomeva/bank/exception/*</exclude>
+						<exclude>co/com/coomeva/bank/security/*</exclude>
+						<exclude>co/com/coomeva/bank/entityservice/*</exclude>
 						
 					</excludes>
 				</configuration>
