@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.vobi.bank</groupId>
-	<artifactId>eureka-server</artifactId>
+	<artifactId>co.com.coomeva.bank</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>eureka-server</name>
 	<description>Demo project for Spring Boot</description>
