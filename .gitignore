@@ -35,3 +35,5 @@ build/
 ### Mac OSX ###
 .metadata
 .DS_Store
+
+database/
