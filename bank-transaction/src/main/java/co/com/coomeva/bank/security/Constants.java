@@ -13,6 +13,9 @@ public class Constants {
 	public static final String HEADER_AUTHORIZACION_KEY = "Authorization";
 	public static final String TOKEN_BEARER_PREFIX = "Bearer ";
 
+	public static final String API_DOCS="/v3/api-docs/**";
+	public static final String SWAGGER_UI="/swagger-ui/**";
+
 	// JWT
 	public static final String ISSUER_INFO = "https://zathuracode.org";
 	public static final String SUPER_SECRET_KEY = "z4tur4c0dv92021isth3b3stcodeg3n3ratorintheworldofj4v4v0rtex2020";
