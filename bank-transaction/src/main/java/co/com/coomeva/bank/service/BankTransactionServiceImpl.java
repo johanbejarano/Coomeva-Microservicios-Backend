@@ -115,7 +115,7 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 	}
 	
 //	private OTPValidationResponse validateToken(String user, String otp) {
-//		
+//	
 //		String jsonBody = "{"
 //				+ " \"user\": \""+user+"\","
 //				+ " \"otp\": \""+otp+"\" "
@@ -132,12 +132,11 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 //		return otpValidationResponse;
 //	}
 	
-
 	private OTPValidationResponse validateToken(String user, String otp) throws Exception {
-
+		
 		OTPValidationRequest otpValidationRequest = new OTPValidationRequest(user, otp);
 		return otpServiceClient.validateOTP(otpValidationRequest);
-
+				
 	}
 
 	@Override
