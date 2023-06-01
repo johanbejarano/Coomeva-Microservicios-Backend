@@ -66,14 +66,13 @@ public class WebSecurity {
 		
 
 
-		httpSecurity
+        httpSecurity
 			.sessionManagement(sessionManager -> {
 				sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 			})
 			.authorizeHttpRequests( auth -> {
-				auth.requestMatchers("/**").permitAll();
-				// auth.requestMatchers(LOGIN_URL, ACTUATOR_URL, API_DOCS, SWAGGER_UI).permitAll();
-				// auth.anyRequest().authenticated();
+				auth.requestMatchers(LOGIN_URL, ACTUATOR_URL, API_DOCS, SWAGGER_UI).permitAll();
+				auth.anyRequest().authenticated();
 			})
 			
 			.csrf( AbstractHttpConfigurer::disable )
