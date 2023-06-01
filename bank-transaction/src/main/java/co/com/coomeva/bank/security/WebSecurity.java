@@ -73,7 +73,7 @@ public class WebSecurity {
 			})
 			
 			.csrf( AbstractHttpConfigurer::disable )
-			.addFilter(new JWTAuthorizationFilter(authenticationManager))
+			.addFilter(new JWTAuthenticationFilter(authenticationManager))
 			.addFilter(new JWTAuthorizationFilter(authenticationManager))
 			.authenticationManager(authenticationManager)
 			.headers( headersConfig -> {
