@@ -11,11 +11,11 @@ public class BankTransactionApplication {
 
 	@Value("${otp.service.validate.url}")
 	private String otpServiceValidateUrl;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(BankTransactionApplication.class, args);
 	}
-	
+
 	@Bean
 	public WebClient otpWebClient() {
 	return WebClient.builder()

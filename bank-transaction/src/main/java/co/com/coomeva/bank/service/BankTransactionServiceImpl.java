@@ -110,7 +110,7 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 	}
 	
 	private OTPValidationResponse validateToken(String user, String otp) {
-		
+	
 		String jsonBody = "{"
 				+ " \"user\": \""+user+"\","
 				+ " \"otp\": \""+otp+"\" "
