@@ -26,6 +26,8 @@ import co.com.coomeva.bank.entityservice.TransactionTypeService;
 import co.com.coomeva.bank.entityservice.UsersService;
 import co.com.coomeva.bank.exception.ZMessManager;
 import co.com.coomeva.bank.openfeignclients.FeignClients;
+//import co.com.coomeva.bank.openfeignclients.OTPServiceClient;
+//import reactor.core.publisher.Mono;
 
 
 @Service
@@ -117,7 +119,7 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 	}
 	
 //	private OTPValidationResponse validateToken(String user, String otp) {
-//		
+//	
 //		String jsonBody = "{"
 //				+ " \"user\": \""+user+"\","
 //				+ " \"otp\": \""+otp+"\" "
@@ -134,13 +136,17 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 //		return otpValidationResponse;
 //	}
 	
-
 	private OTPValidationResponse validateToken(String user, String otp) throws Exception {
-
+		
+		//Using OpenFeign
 		OTPValidationRequest otpValidationRequest = new OTPValidationRequest(user, otp);
 		//return otpServiceClient.validateOTP(otpValidationRequest);
 		return feignClients.validateOTP(otpValidationRequest);
 
+		
+		//OTPValidationRequest otpValidationRequest = new OTPValidationRequest(user, otp);
+		//return otpServiceClient.validateOTP(otpValidationRequest);
+				
 	}
 
 	@Override
