@@ -18,13 +18,18 @@ spring:
             allowed-origins: "*"
             allowed-methods: "*"
             allowed-headers: "*"
-
   security:
     oauth2:
-    
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/auth/realms/vortexbirdBank
+          issuer-uri: http://localhost:8080/realms/vortexbirdBank
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+  jwt:
+    auth:
+      converter:
+        resource-id: bank-services
+        principal-attribute: preferred_username
 
 #Register in Eureka Server
 eureka:

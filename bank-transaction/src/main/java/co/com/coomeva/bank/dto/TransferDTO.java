@@ -7,13 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class TransferDTO {
-
 	private String accoIdOrigin;
 	private String accoIdDestination;
 	private Double amount;
 	private String userEmail;
 	private String token;
-
 }
