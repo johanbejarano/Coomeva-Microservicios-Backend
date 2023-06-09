@@ -30,4 +30,3 @@ public class OTPServiceCircuitBreakerImpl implements OTPServiceCircuitBreaker {
 	}
 
 }
-

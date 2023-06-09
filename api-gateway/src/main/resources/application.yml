@@ -18,20 +18,34 @@ spring:
             allowed-origins: "*"
             allowed-methods: "*"
             allowed-headers: "*"
-
   security:
     oauth2:
-    
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/auth/realms/vortexbirdBank
-          
+          issuer-uri: http://localhost:8080/realms/vortexbirdBank
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+  jwt:
+    auth:
+      converter:
+        resource-id: bank-services
+        principal-attribute: preferred_username
+        
   sleuth:
     reactor:
       instrumentation-type: decorate-on-each
-
+      
+management:
+  tracing:
+    sampling:
+      probability: 1.0
   zipkin:
-    base-url: http://localhost:9411
+     tracing:
+      endpoint: http://localhost:9411/api/v2/spans 
+      
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 
 #Register in Eureka Server
 eureka:
@@ -39,4 +53,3 @@ eureka:
     service-url:
       defaultZone: http://localhost:1111/eureka
     register-with-eureka: true
-      
