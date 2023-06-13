@@ -1,4 +1,4 @@
-package co.com.coomeva.bank.bank;
+package co.com.coomeva.bank;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

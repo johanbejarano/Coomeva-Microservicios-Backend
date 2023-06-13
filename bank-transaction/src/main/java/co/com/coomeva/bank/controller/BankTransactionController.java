@@ -1,12 +1,16 @@
 package co.com.coomeva.bank.controller;
 
-import javax.annotation.security.RolesAllowed;
-import javax.validation.Valid;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +27,7 @@ import co.com.coomeva.bank.service.BankTransactionService;
 @RestController
 @RequestMapping("/api/v1/transactions")
 @CrossOrigin(origins = "*")
+@Slf4j
 @RefreshScope
 public class BankTransactionController {
 
@@ -33,16 +38,25 @@ public class BankTransactionController {
 	String myProperty;
 
 	@PostMapping("/transfer")
-	@RolesAllowed("ROLE_bank_holder")
-	public ResponseEntity<TransactionResultDTO> transfer(@Valid @RequestBody TransferDTO transferDTO) throws Exception {
+	@RolesAllowed("bank_holder")
+	public ResponseEntity<TransactionResultDTO> transfer(
+			Principal principal,
+			@Valid @RequestBody TransferDTO transferDTO) throws Exception {
 
+		JwtAuthenticationToken token = (JwtAuthenticationToken) principal;
+		String userName = (String) token.getTokenAttributes().get("name");
+        String userEmail = (String) token.getTokenAttributes().get("email");
+        
+        
+		log.info("Username: {}, email: {}, Principal: {}", userName, userEmail, principal);
+		
 		TransactionResultDTO transactionResultDTO = bankTransactionService.transfer(transferDTO);
 		return ResponseEntity.ok().body(transactionResultDTO);
 
 	}
 
 	@PostMapping("/withdraw")
-	@RolesAllowed("ROLE_bank_holder")
+	@RolesAllowed("bank_holder")
 	public ResponseEntity<TransactionResultDTO> withdraw(@Valid @RequestBody WithdrawDTO withdrawDTO) throws Exception {
 
 		TransactionResultDTO transactionResultDTO = bankTransactionService.withdraw(withdrawDTO);
@@ -51,7 +65,6 @@ public class BankTransactionController {
 	}
 
 	@PostMapping("/deposit")
-	@RolesAllowed("ROLE_bank_holder")
 	public ResponseEntity<TransactionResultDTO> deposit(@Valid @RequestBody DepositDTO depositDTO) throws Exception {
 
 		TransactionResultDTO transactionResultDTO = bankTransactionService.deposit(depositDTO);
@@ -60,9 +73,13 @@ public class BankTransactionController {
 	}
 	
 	@PostMapping("/unlock")
-	@RolesAllowed("ROLE_cashier")
-	public ResponseEntity<String> unlockAccount() throws Exception {
-		return ResponseEntity.ok().body("Account unlocked");
+	@RolesAllowed("cashier")
+	public ResponseEntity<String> unlockAccount(Principal principal) throws Exception {
+		
+		JwtAuthenticationToken token = (JwtAuthenticationToken) principal;
+		String userName = (String) token.getTokenAttributes().get("name");
+		
+		return ResponseEntity.ok().body("Authenticated user " + userName + ", has unloked a bank account!");
 	}
 	
 	@GetMapping("/my-property")

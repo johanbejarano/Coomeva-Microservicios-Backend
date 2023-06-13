@@ -7,4 +7,3 @@ public interface OTPServiceCircuitBreaker {
 	public OTPValidationResponse validateOTP(String user, String otp) throws Exception;
 	
 }
-
