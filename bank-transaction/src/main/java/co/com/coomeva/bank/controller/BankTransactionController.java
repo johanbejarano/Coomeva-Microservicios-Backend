@@ -23,6 +23,7 @@ import co.com.coomeva.bank.dto.TransactionResultDTO;
 import co.com.coomeva.bank.dto.TransferDTO;
 import co.com.coomeva.bank.dto.WithdrawDTO;
 import co.com.coomeva.bank.service.BankTransactionService;
+import io.micrometer.core.annotation.Timed;
 
 @RestController
 @RequestMapping("/api/v1/transactions")
@@ -85,6 +86,29 @@ public class BankTransactionController {
 	@GetMapping("/my-property")
 	public ResponseEntity<String> getMyProperty(){
 		return ResponseEntity.ok(myProperty);
+	}
+	
+	@GetMapping("/very-slow-endpoint")
+	@Timed(value = "very.slow", description = "Time taken to return greeting")
+	public ResponseEntity<String> getVerySlowEndpoint(){
+		
+		try {
+			
+			java.util.Random r = new java.util.Random();
+			
+			int low = 0;
+			int high = 30000;
+			
+			int time = r.nextInt(high-low) + low;
+			
+			Thread.sleep(time);
+			
+			return ResponseEntity.ok("Ok");
+			
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body("Error");
+		}
+			
 	}
 
 }
