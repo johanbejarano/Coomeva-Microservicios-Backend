@@ -1,13 +1,10 @@
 package co.com.coomeva.bank;
 
-import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.context.annotation.Bean;
-
-import io.micrometer.core.aop.TimedAspect;
-import io.micrometer.core.instrument.MeterRegistry;
+//import org.springframework.context.annotation.Bean;
 //import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication
@@ -16,16 +13,11 @@ public class BankTransactionApplication {
 
 //	@Value("${otp.service.validate.url}")
 //	private String otpServiceValidateUrl;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(BankTransactionApplication.class, args);
 	}
-	
-	@Bean
-	public TimedAspect timedAspect(MeterRegistry registry) {
-	    return new TimedAspect(registry);
-	}
-	
+
 //	@Bean
 //	public WebClient otpWebClient() {
 //	return WebClient.builder()
